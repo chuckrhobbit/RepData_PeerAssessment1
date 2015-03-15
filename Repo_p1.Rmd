@@ -204,14 +204,15 @@ wd <- weekdays(as.Date(act_tb[,"date"]))
 wd[wd %in% c("Sunday","Saturday")]<-"weekend"
 wd[wd != "weekend"]<-"weekday"  
 
-#add this col to mean_tb
+#add this col to act_tb
 act_tb$dtype <- wd  
 
 # TIME Keeping clean up
 # get a vector of minutes from 0 without the hour value breaks
 # ie. 55 to 60 insted of 55 to 100
 minutes <- act_tb$interval %/% 100 * 60 + act_tb$interval %% 100
-# make a new dataframe for referance
+
+# add min to act_tb
 act_tb$min <- minutes 
 
 #now make seperate tables for weekday and weekend
@@ -227,40 +228,68 @@ weekend_tb<-aggregate(weekend_tb$steps,
                     by=list('min'=weekend_tb$min,'interval'=weekend_tb$interval),
                     FUN=mean
                     )
+# sync up the interval numbers with 5 min intervals 
+il <- as.character(as.integer(quantile(weekday_tb$interval,
+                              probs=seq(0,1,.125),names=F)))
+ml <- quantile(weekday_tb$min,probs=seq(0,1,.125))
 
+
+
+#prep the display
+# 
 par(mfrow=c(2,1),oma=c(4,2,2,0),pin=c(5.8,2),mar=c(0,2,0,2))
 
 plot(weekday_tb$min,weekday_tb$x,
      type='l',axes=F,ann=F,ylim=c(0,240)
      )
-#right side default axes this plot only
+
+#right side axes this plot only
 axis(4)
-axis(2:3,labels=F)
-mtext("Weekdays",side=3,line=-1)
+#No left or top axes
+axis(2,labels=F)
+axis(3,at=ml,labels=F)
+#draw border
 box(which = "plot", lty = "solid" )
 
-                    
-#legend("topright",legend=stpi,fill="red")
+#put title inside plot area
+mtext("Weekdays",side=3,line=-1)
+
+xmin <- par("usr")[1]
+xmax <- par("usr")[2]
+ymin <- par("usr")[3]
+ymax <- par("usr")[4]
+color <- rgb(255, 203, 173, alpha=80, maxColorValue=255)
+rect(xmin,ymax%/%1.15,xmax,ymax,col =color )
 
 plot(weekend_tb$min,weekend_tb$x,
     type='l',axes=F,ylim=c(0,200)
      )
 
-il <- as.character(as.integer(quantile(weekday_tb$interval,
-                              probs=seq(0,1,.125),names=F)))
-ml <- quantile(weekday_tb$min,probs=seq(0,1,.125))
-axis(1,at=ml,labels=il)
-#rect(-5,50,555,150, col ="red" )
-axis(2)
-box(which = "plot", lty = "solid")
-#mtext("Weekends",side=3,line=.25,bg="red")
 
+
+#use 5 min interval for ploting and interval numbers for display
+# x bottom
+axis(1,at=ml,labels=il)
+#left access bottom plot
+axis(2)
+# add border
+box(which = "plot", lty = "solid")
+
+mtext("Weekends",side=3,line=-1)
+#shade the text box
+xmin <- par("usr")[1]
+xmax <- par("usr")[2]
+ymin <- par("usr")[3]
+ymax <- par("usr")[4]
+color <- rgb(255, 203, 173, alpha=80, maxColorValue=255)
+rect(xmin,ymax%/%1.15,xmax,ymax,col =color )
+
+# put axes labels in outer margins
 mtext(c("Intervals", "Number of Steps"),
       c(1,2),
       outer=TRUE,line=c(2,1))
-#line=0.4, cex=1.2, 
 
-            
+          
 ```
 
 
