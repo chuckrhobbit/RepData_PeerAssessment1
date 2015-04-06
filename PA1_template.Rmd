@@ -1,6 +1,6 @@
 
 ---
-title: Reproducible Research <br> --*class project 1* <br><hr>
+title: "Reproducible Research <br> --*class project 1* <br><hr>"
 
 output: html_document
   
