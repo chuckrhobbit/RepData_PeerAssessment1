@@ -9,13 +9,14 @@ output:
 ## Loading and preprocessing the data
 
 load the original data file
-```{r}
-activity_tb <- read.csv("activity/activity.csv",stringsAsFactors=F)
 
+```r
+activity_tb <- read.csv("activity/activity.csv",stringsAsFactors=F)
 ```
 
 ## What is mean total number of steps taken per day?
-```{r}
+
+```r
 #aggregate the total steps by date 
 attach(activity_tb)
 tot_steps<-aggregate(activity_tb$steps,by=list(dates=date),FUN=sum,rm.na=TRUE)
@@ -38,12 +39,15 @@ abline(v = mid_n, col = "gray", lwd = 6)
 legend("topright",legend=c("mean ","median "),fill=c("red","gray"))
 ```
 
-**mean is `r mean_n` steps and the median is `r mid_n` steps**
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
+
+**mean is 10767 steps and the median is 10766 steps**
 
 
 ## What is the average daily activity pattern?
 
-```{r}
+
+```r
 #not using NAs here so just dump them
 #then aggregate on avg steps by interval
 
@@ -88,14 +92,16 @@ axis(3,at=ml,labels=il,fg="red",lwd=3)
 legend("topright",legend=stpi,fill="red")
 ```
 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
+
 ## Imputing missing values
 
 replace NA steps values with the median for that interval
 
 <b>First check that all NAs are in the steps variable:</b>
 
-```{r}
 
+```r
 ###NOTE could have used summary here but I wanted to generate
 #a success or fail message
 
@@ -115,20 +121,18 @@ OK = "Variables other than steps have NAs to check"
 if(cnt2 == 0){
   OK <- "Only need to worry about NAs in steps variable"
 }
-  
-
 ```
 
 
-"steps" variable NA count == `r cnt1`
+"steps" variable NA count == 2304
 
-Other variables NA count == `r cnt2`
+Other variables NA count == 0
 
-result: `r OK`
+result: Only need to worry about NAs in steps variable
 
 <b>Now set those NAs to the median for all days for that interval:</b>
-```{r}
 
+```r
 #copy the activity_tb to preserve it
 act_tb <- activity_tb
 
@@ -174,16 +178,17 @@ abline(v = mean_n2, col = "red", lwd = 6)
 abline(v = mid_n2, col = "gray", lwd = 6)
 legend("topright",legend=c("mean ","median","nas replaced","nas removed"),
        fill=c("red","gray","blue",co))
-
 ```
+
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
 
 ### NAs replaced:
 
-**Mean is `r mean_n2` steps and the Median is `r mid_n2` steps**
+**Mean is 9504 steps and the Median is 10396 steps**
 
 ### NAs removed:
 
-**Mean is `r mean_n` steps and the Median is `r mid_n` steps**
+**Mean is 10767 steps and the Median is 10766 steps**
 
 ##Answers for assignment:
 
@@ -196,7 +201,8 @@ total steps.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-```{r}
+
+```r
 #Using act_tb (original data with nas replaced)
 #get a vector of day names
 wd <- weekdays(as.Date(act_tb[,"date"]))
@@ -289,9 +295,9 @@ rect(xmin,ymax%/%1.15,xmax,ymax,col =color )
 mtext(c("Intervals", "Number of Steps"),
       c(1,2),
       outer=TRUE,line=c(2,1))
-
-          
 ```
+
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
 
 
 
