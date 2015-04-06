@@ -1,9 +1,10 @@
 
 ---
-title: 'Reproducible Research <br> --*class project 1* <br><hr>
-output:
-  html_document:
-  keep_md: yes
+title: Reproducible Research <br> --*class project 1* <br><hr>
+
+output: html_document
+  
+keep_md: yes
 ---
 
 ## Loading and preprocessing the data
@@ -23,6 +24,10 @@ attach(activity_tb)
 
 ```
 ## The following objects are masked from activity_tb (pos = 3):
+## 
+##     date, interval, steps
+## 
+## The following objects are masked from activity_tb (pos = 4):
 ## 
 ##     date, interval, steps
 ```
