@@ -1,11 +1,13 @@
-
 ---
 title: "Reproducible Research <br> --*class project 1* <br><hr>"
 
 output: html_document
   
 keep_md: yes
----
+--- 
+<style>
+hr{color:green;height:5px;}
+</style>
 
 ## Loading and preprocessing the data
 
@@ -14,6 +16,8 @@ load the original data file
 activity_tb <- read.csv("activity/activity.csv",stringsAsFactors=F)
 
 ```
+
+<hr>
 
 ## What is mean total number of steps taken per day?
 ```{r}
@@ -29,7 +33,7 @@ dm <- 200*(mean_n - mid_n)
 
 hist(tot_steps$x,
      main="Total steps for all days",
-     xlab="Total Steps per day ",
+     xlab="Total Steps all days ",
      col='blue',
      breaks=20)
 #move red and gray lines apart so they are visible
@@ -39,8 +43,11 @@ abline(v = mid_n, col = "gray", lwd = 6)
 legend("topright",legend=c("mean ","median "),fill=c("red","gray"))
 ```
 
-**mean is `r mean_n` steps and the median is `r mid_n` steps**
+### The mean total steps : `r mean_n` 
 
+### The median total steps : `r mid_n` 
+
+****
 
 ## What is the average daily activity pattern?
 
@@ -88,6 +95,7 @@ axis(3,at=ml,labels=il,fg="red",lwd=3)
                
 legend("topright",legend=stpi,fill="red")
 ```
+***
 
 ## Imputing missing values
 
@@ -193,7 +201,7 @@ legend("topright",legend=c("mean ","median","nas replaced","nas removed"),
 2 The impact of imputting missing data has decresed the mean and median
 total steps.
 
-<hr style = "color:red">
+****
 
 ## Are there differences in activity patterns between weekdays and weekends?
 

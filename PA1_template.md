@@ -1,11 +1,13 @@
-
 ---
 title: "Reproducible Research <br> --*class project 1* <br><hr>"
 
 output: html_document
   
 keep_md: yes
----
+--- 
+<style>
+hr{color:green;height:5px;}
+</style>
 
 ## Loading and preprocessing the data
 
@@ -15,20 +17,13 @@ load the original data file
 activity_tb <- read.csv("activity/activity.csv",stringsAsFactors=F)
 ```
 
+<hr>
+
 ## What is mean total number of steps taken per day?
 
 ```r
 #aggregate the total steps by date 
 attach(activity_tb)
-```
-
-```
-## The following objects are masked from activity_tb (pos = 3):
-## 
-##     date, interval, steps
-```
-
-```r
 tot_steps<-aggregate(activity_tb$steps,by=list(dates=date),FUN=sum,rm.na=TRUE)
 
 mean_n <- as.integer(mean(tot_steps$x,na.rm=T))
@@ -39,7 +34,7 @@ dm <- 200*(mean_n - mid_n)
 
 hist(tot_steps$x,
      main="Total steps for all days",
-     xlab="Total Steps per day ",
+     xlab="Total Steps all days ",
      col='blue',
      breaks=20)
 #move red and gray lines apart so they are visible
@@ -51,8 +46,11 @@ legend("topright",legend=c("mean ","median "),fill=c("red","gray"))
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
-**mean is 10767 steps and the median is 10766 steps**
+### The mean total steps : 10767 
 
+### The median total steps : 10766 
+
+****
 
 ## What is the average daily activity pattern?
 
@@ -103,6 +101,7 @@ legend("topright",legend=stpi,fill="red")
 ```
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
+***
 
 ## Imputing missing values
 
@@ -207,7 +206,7 @@ legend("topright",legend=c("mean ","median","nas replaced","nas removed"),
 2 The impact of imputting missing data has decresed the mean and median
 total steps.
 
-<hr style = "color:red">
+****
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
