@@ -21,6 +21,15 @@ activity_tb <- read.csv("activity/activity.csv",stringsAsFactors=F)
 ```r
 #aggregate the total steps by date 
 attach(activity_tb)
+```
+
+```
+## The following objects are masked from activity_tb (pos = 3):
+## 
+##     date, interval, steps
+```
+
+```r
 tot_steps<-aggregate(activity_tb$steps,by=list(dates=date),FUN=sum,rm.na=TRUE)
 
 mean_n <- as.integer(mean(tot_steps$x,na.rm=T))
