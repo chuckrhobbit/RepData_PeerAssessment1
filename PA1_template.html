@@ -201,10 +201,6 @@ hr {
 </head>
 
 <body>
-<style>
-hr{color:green;height:5px;}
-</style>
-
 <h2>Loading and preprocessing the data</h2>
 
 <p>load the original data file</p>
@@ -218,7 +214,14 @@ hr{color:green;height:5px;}
 
 <pre><code class="r">#aggregate the total steps by date 
 attach(activity_tb)
-tot_steps&lt;-aggregate(activity_tb$steps,by=list(dates=date),FUN=sum,rm.na=TRUE)
+</code></pre>
+
+<pre><code>## The following objects are masked from activity_tb (pos = 3):
+## 
+##     date, interval, steps
+</code></pre>
+
+<pre><code class="r">tot_steps&lt;-aggregate(activity_tb$steps,by=list(dates=date),FUN=sum,rm.na=TRUE)
 
 mean_n &lt;- as.integer(mean(tot_steps$x,na.rm=T))
 mid_n &lt;- median(tot_steps$x,na.rm=T)
