@@ -1,4 +1,4 @@
-Reproducible Research <br> --*class project 1* <br><hr>
+##Reproducible Research <br> --*class project 1* <br><hr>
 
 ## Loading and preprocessing the data
 The data consists of two months of data from an anonymous individual collected during the months of October and November, 2012 and include the number of steps taken in 5 minute intervals each day.
@@ -20,6 +20,15 @@ activity_tb <- read.csv("activity/activity.csv",stringsAsFactors=F)
 ```r
 #aggregate the total steps by date 
 attach(activity_tb)
+```
+
+```
+## The following objects are masked from activity_tb (pos = 3):
+## 
+##     date, interval, steps
+```
+
+```r
 tot_steps<-aggregate(activity_tb$steps,by=list(dates=date),FUN=sum,rm.na=TRUE)
 
 mean_n <- as.integer(mean(tot_steps$x,na.rm=T))
@@ -302,7 +311,7 @@ mtext(c("Intervals", "Avg Number of Steps"),
 
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
 
-From about 9am to 9pm on weekends there seems to an  increse in the avarage steps per inteval.
+From about 9am to 9pm on weekends there seems to be an increse in the avarage steps per inteval.
 
 
 
