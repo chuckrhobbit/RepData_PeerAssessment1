@@ -1,14 +1,13 @@
----
-title: "Reproducible Research <br> --*class project 1* <br><hr>"
-
-output: html_document
-  
-keep_md: yes
---- 
+Reproducible Research <br> --*class project 1* <br><hr>
 
 ## Loading and preprocessing the data
+The data consists of two months of data from an anonymous individual collected during the months of October and November, 2012 and include the number of steps taken in 5 minute intervals each day.
 
-load the original data file
+orignial data can be found at:
+
+https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip
+
+load the original unziped data file
 ```{r}
 activity_tb <- read.csv("activity/activity.csv",stringsAsFactors=F)
 
@@ -24,15 +23,12 @@ tot_steps<-aggregate(activity_tb$steps,by=list(dates=date),FUN=sum,rm.na=TRUE)
 
 mean_n <- as.integer(mean(tot_steps$x,na.rm=T))
 mid_n <- median(tot_steps$x,na.rm=T)
-dm <- 200*(mean_n - mid_n)
-
-
 
 hist(tot_steps$x,
      main="Total steps for all days",
      xlab="Total Steps all days ",
      col='blue',
-     breaks=20)
+     )
 #move red and gray lines apart so they are visible
 #actual values will print below
 abline(v = mean_n+dm, col = "red", lwd = 6)
@@ -235,6 +231,7 @@ weekend_tb<-aggregate(weekend_tb$steps,
                     by=list('min'=weekend_tb$min,'interval'=weekend_tb$interval),
                     FUN=mean
                     )
+
 # sync up the interval numbers with 5 min intervals 
 il <- as.character(as.integer(quantile(weekday_tb$interval,
                               probs=seq(0,1,.125),names=F)))
@@ -292,12 +289,15 @@ color <- rgb(255, 203, 173, alpha=80, maxColorValue=255)
 rect(xmin,ymax%/%1.15,xmax,ymax,col =color )
 
 # put axes labels in outer margins
-mtext(c("Intervals", "Number of Steps"),
+mtext(c("Intervals", "Avg Number of Steps"),
       c(1,2),
       outer=TRUE,line=c(2,1))
 
           
 ```
+
+From about 9am to 9pm on weekends there seems to an  increse in the avarage steps per inteval.
+
 
 
 
